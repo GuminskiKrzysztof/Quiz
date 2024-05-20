@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorMVVM.VIewModel.BaseClass
+namespace QUIZ.QUIZ.ViewModel.BaseClass
 {
     class ViewModelBase : INotifyPropertyChanged
     {

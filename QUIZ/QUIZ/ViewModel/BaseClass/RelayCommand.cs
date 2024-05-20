@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CalculatorMVVM.VIewModel.BaseClass
+namespace QUIZ.QUIZ.ViewModel.BaseClass
 {
     //tworzymy klasę uniwesalną określającą czym jest dowolne polecenie, gdzie 
     //zachowanie tego polecenia wstrzykujemy poprzez metody będące argumentami konstruktora
@@ -15,16 +15,16 @@ namespace CalculatorMVVM.VIewModel.BaseClass
     {
         #region pola prywatne
 
-             //referencje metod polecenia (Command) zdefinowanych w interfejsie ICommand
+        //referencje metod polecenia (Command) zdefinowanych w interfejsie ICommand
 
-            //delegata Action<object> jest typem określającym metody nic nie zwarające 
-            //o jednym argumencie typu object
-            readonly Action<object> _execute;
-           //delegata Predicate<object> oznacza metodę zwracającą zmienną typu bool o argumencie object
-            readonly Predicate<object> _canExecute;
+        //delegata Action<object> jest typem określającym metody nic nie zwarające 
+        //o jednym argumencie typu object
+        readonly Action<object> _execute;
+        //delegata Predicate<object> oznacza metodę zwracającą zmienną typu bool o argumencie object
+        readonly Predicate<object> _canExecute;
 
         #endregion
-                
+
         #region konstruktor
 
         //metody składowe interfejsu ICommand zostaną przekazane do ogólnej klasy polecenia poprzez 
@@ -35,14 +35,14 @@ namespace CalculatorMVVM.VIewModel.BaseClass
                 throw new ArgumentNullException(nameof(execute));
             else
                 _execute = execute;
-                _canExecute = canExecute;
+            _canExecute = canExecute;
         }
         #endregion
-        
+
         #region Składowe interfejsu ICommand
         //składowe interfesu ICommand w odniesienu do wstrzykniętych z zewnątrz metod
         //referencje do których przechowujemy w prywatnych polach
-        
+
         //metoda określająca czy polecenie może zostac wykonane
         public bool CanExecute(object parameter)
         {

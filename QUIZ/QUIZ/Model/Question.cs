@@ -16,6 +16,12 @@ namespace QUIZ.Model
             this.text = string.Empty;   
             this.answers = new List<Answer>();
         }
-    
+
+        public Question(string text, List<Answer> answers)
+        {
+            this.text = string.Empty;
+            this.answers = answers;
+        }
+
     }
 }

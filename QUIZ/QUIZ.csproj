@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="QUIZ\baza.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="QUIZ\baza.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
+  </ItemGroup>
+
 </Project>

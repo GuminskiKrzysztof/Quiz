@@ -15,6 +15,10 @@ namespace QUIZ.Model
             this.text = "";
             this.is_correct = false;
         }
-   
+    public Answer(string text, bool is_correct)
+    {
+        this.text = text;
+        this.is_correct = is_correct;
+    }
     }
 }
