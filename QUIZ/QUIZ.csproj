@@ -9,11 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="QUIZ\baza.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="QUIZ\baza.sql" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
