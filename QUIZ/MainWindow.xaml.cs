@@ -20,5 +20,23 @@ namespace QUIZ
         {
             InitializeComponent();
         }
+
+        private void TakeQuizbtn_Click(object sender, RoutedEventArgs e)
+        {
+            TakingQuiz objTakingQuiz = new TakingQuiz();
+            this.Visibility = Visibility.Hidden;
+            CreatingQuiz objCreatingQuiz = new CreatingQuiz();
+            objCreatingQuiz.Visibility = Visibility.Hidden;
+            objTakingQuiz.Show();
+        }
+
+        private void CreateQuizbtn_Click(object sender, RoutedEventArgs e)
+        {
+            TakingQuiz objTakingQuiz = new TakingQuiz();
+            this.Visibility = Visibility.Hidden;
+            CreatingQuiz objCreatingQuiz = new CreatingQuiz();
+            objTakingQuiz.Visibility = Visibility.Hidden;
+            objCreatingQuiz.Show();
+        }
     }
 }

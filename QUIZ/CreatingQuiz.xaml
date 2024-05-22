@@ -1,0 +1,57 @@
+﻿<Window x:Class="QUIZ.CreatingQuiz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QUIZ"
+        mc:Ignorable="d"
+        Title="Quiz Manager" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
+            <Button Content="Create New Quiz" Margin="5"/>
+            <Button Content="Save Quiz" Margin="5"/>
+            <Button Content="Load Quiz" Margin="5"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Quiz List -->
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Quizzes" FontSize="16" FontWeight="Bold" Margin="5" />
+                <ListBox x:Name="QuizListBox" DisplayMemberPath="Name" Margin="5" Height="300"/>
+            </StackPanel>
+
+            <!-- Quiz Details -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Quiz Details" FontSize="16" FontWeight="Bold" Margin="5" />
+                <TextBox x:Name="QuizNameTextBox" Margin="5" />
+
+                <TextBlock Text="Questions" FontSize="14" FontWeight="Bold" Margin="5" />
+                <ListBox x:Name="QuestionListBox" DisplayMemberPath="Text" Margin="5" Height="200"/>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button Content="Add Question" Margin="5"/>
+                    <Button Content="Remove Question" Margin="5"/>
+                </StackPanel>
+
+                <!-- Question Details -->
+                <StackPanel Margin="5">
+                    <TextBox x:Name="QuestionTextBox" Margin="5" />
+                    <TextBox x:Name="CorrectAnswerTextBox" Margin="5" />
+                </StackPanel>
+                <Button Content="Back to menu" Margin="5" Click="Back_to_menu_click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

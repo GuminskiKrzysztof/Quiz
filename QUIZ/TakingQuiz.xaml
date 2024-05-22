@@ -1,0 +1,19 @@
+﻿<Window x:Class="QUIZ.TakingQuiz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QUIZ"
+        mc:Ignorable="d"
+        Title="TakingQuiz" Height="450" Width="800">
+    <Grid>
+        <Button Content="Back to menu" HorizontalAlignment="Left" Margin="557,331,0,0" VerticalAlignment="Top" Height="58" Width="77" Click="Back_to_menu_click"/>
+        <Label Content="Pytanie" HorizontalAlignment="Center" Height="75" Margin="0,33,0,0" VerticalAlignment="Top" Width="695" FontSize="45"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="66,176,0,0" VerticalAlignment="Top" Height="59" Width="166" FontSize="20"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="253,175,0,0" VerticalAlignment="Top" Height="42" Width="131" FontSize="20"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="452,175,0,0" VerticalAlignment="Top" Height="42" Width="131" FontSize="20"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="616,175,0,0" VerticalAlignment="Top" Height="42" Width="132" FontSize="20"/>
+        <Button Content="Potwierdź" HorizontalAlignment="Left" Margin="359,277,0,0" VerticalAlignment="Top" Height="60" Width="124"/>
+
+    </Grid>
+</Window>
