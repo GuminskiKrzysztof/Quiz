@@ -11,10 +11,15 @@ namespace QUIZ.ViewModel
     {
         private Model model = new Model();
 
+        public CreatingQuiz CreateQuiz { get; set; }
+        public TakingQuiz TakeQuiz { get; set; }
 
         public MainViewModel() 
         {
-
+            CreateQuiz = new CreatingQuiz(model);
+            TakeQuiz = new TakingQuiz(model);
         }
+
+
     }
 }

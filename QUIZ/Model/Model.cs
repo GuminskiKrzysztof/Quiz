@@ -38,6 +38,16 @@ namespace QUIZ.QUIZ.Model
             }
         }
 
+        public ObservableCollection<Quiz> LoadAllQuizzes(Quiz quiz)
+        {
+            var quizzes = new ObservableCollection<Quiz>();
+            foreach (var it in Quizzes)
+            {
+                quizzes.Add(it);
+            }
+            return quizzes;
+        }
+
         public bool AddQuizToDatabase(Quiz quiz)
         {
             if (RepoQuiz.AddQuizToDatabase(quiz))
