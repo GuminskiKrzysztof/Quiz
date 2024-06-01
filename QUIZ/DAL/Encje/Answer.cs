@@ -9,8 +9,8 @@ namespace QUIZ.DAL.Encje
 {
     public class Answer
     {
-        public sbyte? Id_answer { get; set; }
-        public sbyte? Id_question { get; set; }
+        public int? Id_answer { get; set; }
+        public int? Id_question { get; set; }
         public string? Text { get; set; }
         public string? Is_correct { get; set; }
        
@@ -22,6 +22,14 @@ namespace QUIZ.DAL.Encje
             Is_correct = reader["is_correct"].ToString();
         }
 
+        public Answer(int? id_question, string? text, string? is_correct)
+        {
+            Id_answer = null;
+            Id_question = id_question;
+            Text = text;
+            Is_correct = is_correct;
+        }
+
         public override string ToString()
         {
             return $"{Id_answer} {Id_question} {Text} {Is_correct}";
@@ -30,7 +38,8 @@ namespace QUIZ.DAL.Encje
         //metoda generuje string dla INSERT TO (nazwisko, imie, wiek, miasto)
         public string ToInsert()
         {
-            return $"('{Id_answer}', '{Id_question}', '{Text}', '{Is_correct}')";
+            int id = 0;
+            return $"('{id}', '{Id_question}', '{Text}', '{Is_correct}')";
         }
     }
 }

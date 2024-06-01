@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace QUIZ.QUIZ.Model
+namespace QUIZ.Model
 {
     using DAL.Encje;
     using DAL.Repozytoria;
@@ -77,5 +77,6 @@ namespace QUIZ.QUIZ.Model
             }
             return false;
         }
+        
     }
 }

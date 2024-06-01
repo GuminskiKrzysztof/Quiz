@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace QUIZ.ViewModel
 {
-    using QUIZ.Model;
+    using Model;
     using System.Collections.ObjectModel;
-    using global::QUIZ.DAL.Encje;
+    using DAL.Encje;
+    using BaseClass;
     class TakingQuiz
     {
         private Model model = new Model();

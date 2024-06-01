@@ -43,7 +43,7 @@ namespace QUIZ.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("adam")]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
         public string userID {
             get {
                 return ((string)(this["userID"]));

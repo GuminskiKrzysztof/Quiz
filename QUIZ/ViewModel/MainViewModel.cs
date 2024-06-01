@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System;
+using System.Globalization;
+using System.Windows.Data;
 
 namespace QUIZ.ViewModel
 {
-    using QUIZ.Model;
+    using DAL.Encje;
+    using Model;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Windows.Data;
+
     class MainViewModel
     {
         private Model model = new Model();
@@ -19,7 +28,9 @@ namespace QUIZ.ViewModel
             CreateQuiz = new CreatingQuiz(model);
             TakeQuiz = new TakingQuiz(model);
         }
+     
 
 
     }
+    
 }

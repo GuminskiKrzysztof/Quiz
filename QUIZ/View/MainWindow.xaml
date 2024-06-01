@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QUIZ"
+
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
+
     <Grid>
         <Button x:Name="CreateQuizbtn" Content="Create Quiz" HorizontalAlignment="Left" Margin="52,58,0,0" VerticalAlignment="Top" Height="71" Width="187" Click="CreateQuizbtn_Click"/>
         <Button x:Name="TakeQuizbtn" Content="Take the Quiz" HorizontalAlignment="Left" Margin="542,58,0,0" VerticalAlignment="Top" Height="71" Width="187" Click="TakeQuizbtn_Click"/>

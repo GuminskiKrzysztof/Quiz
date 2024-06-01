@@ -17,8 +17,7 @@ namespace QUIZ.DAL
         {
             get
             {
-                if (instance == null)
-                    instance = new DBConnection();
+                instance = new DBConnection();
                 return instance;
             }
         }
