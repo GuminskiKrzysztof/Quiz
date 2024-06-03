@@ -77,6 +77,26 @@ namespace QUIZ.Model
             }
             return false;
         }
-        
+
+        public void ShowQuestions(int? idQuiz)
+        {
+            Questions.Clear();
+            var questions = RepoQuestion.GetQuestionsByQuizId(idQuiz);
+            foreach (var question in questions)
+            {
+                Questions.Add(question);
+            }
+        }
+
+        public void ShowAnswers(int? questionId)
+        {
+            Answers.Clear();
+            var answers = RepoAnswer.GetAnswersByQuestionId(questionId);
+            foreach (var answer in answers)
+            {
+                Answers.Add(answer);
+            }
+        }
+
     }
 }

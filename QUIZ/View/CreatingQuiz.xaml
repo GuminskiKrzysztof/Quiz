@@ -27,14 +27,9 @@
                     </Grid.RowDefinitions>
 
                     <!-- Toolbar -->
-                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
-                        <Button Content="Create New Quiz" Margin="5"/>
-                        <Button Content="Save Quiz" Margin="5"/>
-                        <Button Content="Load Quiz" Margin="5"/>
-                    </StackPanel>
 
                     <!-- Main Content -->
-                    <Grid Grid.Row="1" Margin="10">
+                    <Grid Grid.Row="0" Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="3*" />
@@ -44,14 +39,15 @@
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Quizzes" FontSize="16" FontWeight="Bold" Margin="5" />
                             <TextBlock Text="ID              Name                Number of questions" Grid.Column="0" TextAlignment="Center"/>
-                            <ListView x:Name="quizzesList" Margin="5" Height="250"
+                            <ListView x:Name="quizzesList" Margin="5" Height="200"
                                       ItemsSource="{Binding CreateQuiz.Quizzes}"
                                       SelectedItem="{Binding CreateQuiz.CurrentQuiz}"/>
                             <Button Content="Back to menu" Margin="5" Click="Back_to_menu_click"/>
                             <TextBlock Text="Answers" FontSize="14" FontWeight="Bold" Margin="5" />
-                            <ListBox x:Name="answersListBox" DisplayMemberPath="Text" Margin="5" Height="100"
-                                     ItemsSource="{Binding SelectedQuiz.Answers}"
-                                     SelectedItem="{Binding SelectedAnswer}"/>
+                            <TextBlock Text="Answer                          is_correct" Grid.Column="0" TextAlignment="Center"/>
+                            <ListBox x:Name="answersListBox" Margin="5" Height="100"
+                                     ItemsSource="{Binding CreateQuiz.Answers}"
+                                     SelectedItem="{Binding CreateQuiz.CurrentAnswer}"/>
                         </StackPanel>
 
                         <!-- Quiz Details -->
@@ -66,31 +62,39 @@
                                 <Button Content="Add Quiz" Margin="5" Command="{Binding CreateQuiz.AddQuiz}"/>
                                 <Button Content="Remove Quiz" Margin="5" Command="{Binding RemoveQuestionCommand}"/>
                             </StackPanel>
+                            <TextBlock Text="Content Question" FontSize="14" FontWeight="Bold" Margin="5" />
+                            
 
-                            <TextBlock Text="Questions" FontSize="14" FontWeight="Bold" Margin="5" />
-                            <ListBox x:Name="QuestionListBox" Margin="5" Height="100"
-                                     ItemsSource="{Binding CreateQuiz.Questions}"
-                                     SelectedItem="{Binding CreateQuiz.CurrentQuestion}"/>
+                            <!-- Question Details -->
+                            <StackPanel Margin="5">
+                                <TextBox x:Name="QuestionTextBox" Margin="5" Text="{Binding CreateQuiz.QuestionText}" />
+                            </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <Button Content="Add Question" Margin="5" Command="{Binding CreateQuiz.AddQuestion}"/>
                                 <Button Content="Remove Question" Margin="5" Command="{Binding RemoveQuestionCommand}"/>
                             </StackPanel>
 
-                            <!-- Question Details -->
+                            <TextBlock Text="Questions" FontSize="14" FontWeight="Bold" Margin="5" />
+                            <TextBlock Text="Question                                                    Which_Question" Grid.Column="0" TextAlignment="Center"/>
+                            <ListBox x:Name="QuestionListBox" Margin="5" Height="75"
+                                     ItemsSource="{Binding CreateQuiz.Questions}"
+                                     SelectedItem="{Binding CreateQuiz.CurrentQuestion}"/>
+
+                            <TextBlock Text="Answers" FontSize="14" FontWeight="Bold" Margin="5" />
+                            
+                            
                             <StackPanel Margin="5">
-                                <TextBox x:Name="QuestionTextBox" Margin="5" Text="{Binding CreateQuiz.QuestionText}" />
+                                <TextBox x:Name="AnswerTextBox" Margin="5" Text="{Binding CreateQuiz.AnswerText}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5">
-                                <Button Content="Add Answer" Margin="5" Command="{Binding AddAnswerCommand}"/>
-                                <Button Content="Remove Answer" Margin="5" Command="{Binding RemoveAnswerCommand}"/>
+                                <RadioButton x:Name="correctAnswer" Content="Correct" IsChecked="{Binding CreateQuiz.CorrectAnswer}"/>
+                                <RadioButton x:Name="incorrectAnswer" Content="Incorrect" IsChecked="{Binding CreateQuiz.IncorrectAnswer}"/>
                             </StackPanel>
-                            <StackPanel Margin="5">
-                                <TextBox x:Name="AnswerTextBox" Margin="5" Text="{Binding NewAnswerText}" />
-                            </StackPanel>
+
                             <StackPanel Orientation="Horizontal" Margin="5">
-                                <RadioButton x:Name="correctAnswer" Content="Correct" IsChecked="{Binding IsCorrectAnswer}"/>
-                                <RadioButton x:Name="incorrectAnswer" Content="Incorrect" IsChecked="{Binding IsIncorrectAnswer}"/>
+                                <Button Content="Add Answer" Margin="5" Command="{Binding CreateQuiz.AddAnswer}"/>
+                                <Button Content="Remove Answer" Margin="5" Command="{Binding CreateQuiz.Q}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>

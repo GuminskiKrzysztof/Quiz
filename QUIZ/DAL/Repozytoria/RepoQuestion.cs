@@ -45,5 +45,24 @@ namespace QUIZ.DAL.Repozytoria
             }
             return check;
         }
+
+        public static List<Question> GetQuestionsByQuizId(int? idQuiz)
+        {
+            List<Question> questions = new List<Question>();
+            string query = $"{ALL_QUESTIONS} WHERE id_quiz = @idQuiz";
+
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idQuiz", idQuiz);
+                connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                    questions.Add(new Question(reader));
+                connection.Close();
+            }
+
+            return questions;
+        }
     }
 }

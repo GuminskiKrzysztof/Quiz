@@ -24,14 +24,14 @@ namespace QUIZ.DAL.Encje
 
         public Question(int? idQuiz, string? text, int? which)
         {
-            Id_quiz = idQuiz;
             Id_question = null;
+            Id_quiz = idQuiz;
             Text = text;
             Which = which;
         }
         public override string ToString()
         {
-            return $"{Id_quiz} {Id_question} {Text} {Which}";
+            return $"{Text}                                                              {Which}";
         }
 
         //metoda generuje string dla INSERT TO (nazwisko, imie, wiek, miasto)

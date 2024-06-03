@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace QUIZ.ViewModel
 {
@@ -22,6 +23,11 @@ namespace QUIZ.ViewModel
         private string quizName;
         private string answerText;
         private string questionText;
+        private Quiz currentQuiz;
+        private Question currentQuestion;
+        private bool correctAnswer;
+        private bool incorrectAnswer;
+
 
         public CreatingQuiz(Model model)
         {
@@ -29,8 +35,61 @@ namespace QUIZ.ViewModel
             quizzes = model.Quizzes;
             answers = model.Answers;        
             questions = model.Questions;
+            CorrectAnswer = true;
 
+            if (quizzes.Count > 0)
+            {
+                // Ustawienie SelectedItem na pierwszy element listy Quizzes
+                CurrentQuiz = quizzes[0];
+            }
+
+            if (questions.Count > 0)
+            {
+                // Ustawienie SelectedItem na pierwszy element listy Questions
+                CurrentQuestion = questions[0];
+            }
         }
+
+        
+
+        public bool CorrectAnswer
+        {
+            get { return correctAnswer; }
+            set
+            {
+                if (correctAnswer != value)
+                {
+                    correctAnswer = value;
+                    onPropertyChanged(nameof(CorrectAnswer));
+
+                    // Ensure only one radio button is checked
+                    if (correctAnswer)
+                    {
+                        IncorrectAnswer = false;
+                    }
+                }
+            }
+        }
+
+        public bool IncorrectAnswer
+        {
+            get { return incorrectAnswer; }
+            set
+            {
+                if (incorrectAnswer != value)
+                {
+                    incorrectAnswer = value;
+                    onPropertyChanged(nameof(IncorrectAnswer));
+
+                    // Ensure only one radio button is checked
+                    if (incorrectAnswer)
+                    {
+                        CorrectAnswer = false;
+                    }
+                }
+            }
+        }
+
 
         public string NumberOfQuestions
         {
@@ -74,8 +133,32 @@ namespace QUIZ.ViewModel
 
 
 
-        public Quiz CurrentQuiz { get; set; }
-        public Quiz CurrentQuestion { get; set; }
+        public Quiz CurrentQuiz
+        {
+            get { return currentQuiz; }
+            set
+            {
+                currentQuiz = value;
+                onPropertyChanged(nameof(CurrentQuiz));
+                if (currentQuiz != null)
+                {
+                    model.ShowQuestions(currentQuiz.Id);
+                }
+            }
+        }
+        public Question CurrentQuestion
+        {
+            get { return currentQuestion; }
+            set
+            {
+                currentQuestion = value;
+                onPropertyChanged(nameof(CurrentQuestion));
+                if (currentQuestion != null)
+                {
+                    model.ShowAnswers(currentQuestion.Id_question);
+                }
+            }
+        }
         public Quiz CurrentAnswer { get; set; }
 
         public ObservableCollection<Quiz> Quizzes
@@ -137,7 +220,7 @@ namespace QUIZ.ViewModel
             }
         }
 
-        public int WhichQuestion = 0;
+        public int WhichQuestion;
 
         private ICommand addQuestion = null;
         public ICommand AddQuestion
@@ -149,11 +232,11 @@ namespace QUIZ.ViewModel
                         arg =>
                         {
 
-                            WhichQuestion++;
+                            WhichQuestion = questions.Count() + 1;
                             var question = new Question(CurrentQuiz.Id, QuestionText, WhichQuestion);
                                 if (model.AddQuestionToDatabase(question))
                                 {
-                                    System.Windows.MessageBox.Show("Question was added to database!");
+                                    System.Windows.MessageBox.Show("Question was added to database! " + WhichQuestion);
                                 }
                         },
                         arg => (QuestionText != "")
@@ -163,6 +246,37 @@ namespace QUIZ.ViewModel
             }
         }
 
+        private ICommand addAnswer = null;
+        public ICommand AddAnswer
+        {
+            get
+            {
+                if (addAnswer == null)
+                    addAnswer = new RelayCommand(
+                        arg =>
+                        {
+                            bool isCorrect = CorrectAnswer;
+                            string str;
+                            if (isCorrect)
+                            {
+                                str = "T";
+                            }
+                            else
+                            {
+                                str = "N";
+                            }
+                            var answer = new Answer(CurrentQuestion.Id_question, AnswerText, str);
+                            if (model.AddAnswerToDatabase(answer))
+                            {
+                                System.Windows.MessageBox.Show("Answer was added to database!");
+                            }
+                        },
+                        arg => (AnswerText != "") && (CorrectAnswer != null)
+                        );
+
+                return addAnswer;
+            }
+        }
 
         private ICommand loadAllQuizzes = null;
         public ICommand LoadAllQuizzes

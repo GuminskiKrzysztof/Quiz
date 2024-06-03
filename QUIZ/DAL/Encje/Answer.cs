@@ -32,7 +32,7 @@ namespace QUIZ.DAL.Encje
 
         public override string ToString()
         {
-            return $"{Id_answer} {Id_question} {Text} {Is_correct}";
+            return $"{Text}                                                       {Is_correct}";
         }
 
         //metoda generuje string dla INSERT TO (nazwisko, imie, wiek, miasto)
