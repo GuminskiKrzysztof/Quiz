@@ -98,5 +98,119 @@ namespace QUIZ.Model
             }
         }
 
+
+        public bool EditQuiz(string? quizName, int? number_of_questions, int? idQuiz)
+        {
+            if (RepoQuiz.EditQuiz(quizName, number_of_questions, idQuiz))
+            {
+                for (int i = 0; i < Quizzes.Count; i++)
+                {
+                    if (Quizzes[i].Id == idQuiz)
+                    {
+                        Quizzes.RemoveAt(i);
+                        Quiz quiz = new Quiz(idQuiz, quizName, number_of_questions);
+                        Quizzes.Insert(i, quiz);
+                    }
+                    
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteQuiz(int? idQuiz)
+        {
+            if (RepoQuiz.DeleteQuiz(idQuiz))
+            {
+                for (int i = 0; i < Quizzes.Count; i++)
+                {
+                    if (Quizzes[i].Id == idQuiz)
+                    {
+                        Quizzes.RemoveAt(i);
+                    }
+
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool EditQuestion(string? questionText, int? idQuestion)
+        {
+            if (RepoQuestion.EditQuestion(questionText, idQuestion))
+            {
+                for (int i = 0; i < Questions.Count; i++)
+                {
+                    if (Questions[i].Id_question == idQuestion)
+                    {
+                        int? idQuiz = Questions[i].Id_quiz;
+                        int? which = Questions[i].Which;
+                        Questions.RemoveAt(i);
+                        Question question = new Question(idQuestion, idQuiz, questionText, which);
+                        Questions.Insert(i, question);
+                    }
+
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteQuestion(int? idQuiz)
+        {
+            if (RepoQuestion.DeleteQuestion(idQuiz))
+            {
+                for (int i = 0; i < Questions.Count; i++)
+                {
+                    if (Questions[i].Id_question == idQuiz)
+                    {
+                        Questions.RemoveAt(i);
+                    }
+
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool EditAnswer(string? answerText, string? isCorrect, int? idAnswer)
+        {
+            if (RepoAnswer.EditAnswer(answerText, isCorrect, idAnswer))
+            {
+                for (int i = 0; i < Answers.Count; i++)
+                {
+                    if (Answers[i].Id_answer == idAnswer)
+                    {
+                        int? idQuestion = Answers[i].Id_question;
+                        Answers.RemoveAt(i);
+
+                        Answer answer = new Answer(idAnswer, idQuestion, answerText, isCorrect);
+                        Answers.Insert(i, answer);
+                    }
+
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteAnswer(int? idAnswer)
+        {
+            if (RepoAnswer.DeleteAnswer(idAnswer))
+            {
+                for (int i = 0; i < Answers.Count; i++)
+                {
+                    if (Answers[i].Id_answer == idAnswer)
+                    {
+                        Answers.RemoveAt(i);
+                    }
+
+                }
+                return true;
+            }
+            return false;
+        }
+
     }
 }

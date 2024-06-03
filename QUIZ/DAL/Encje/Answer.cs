@@ -30,6 +30,15 @@ namespace QUIZ.DAL.Encje
             Is_correct = is_correct;
         }
 
+
+        public Answer(int? idAnswer, int? id_question, string? text, string? is_correct)
+        {
+            Id_answer = idAnswer;
+            Id_question = id_question;
+            Text = text;
+            Is_correct = is_correct;
+        }
+
         public override string ToString()
         {
             return $"{Text}                                                       {Is_correct}";

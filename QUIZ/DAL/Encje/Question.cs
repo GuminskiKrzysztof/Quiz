@@ -29,6 +29,15 @@ namespace QUIZ.DAL.Encje
             Text = text;
             Which = which;
         }
+
+        public Question(int? idQuestion ,int? idQuiz, string? text, int? which)
+        {
+            Id_question = idQuestion;
+            Id_quiz = idQuiz;
+            Text = text;
+            Which = which;
+        }
+
         public override string ToString()
         {
             return $"{Text}                                                              {Which}";

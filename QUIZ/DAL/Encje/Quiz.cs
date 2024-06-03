@@ -27,6 +27,13 @@ namespace QUIZ.DAL.Encje
             Number_of_questions = number_of_questions;
         }
 
+        public Quiz(int? id, string? name, int? number_of_questions)
+        {
+            Id = id;
+            Name = name;
+            Number_of_questions = number_of_questions;
+        }
+
 
         public override string ToString()
         {

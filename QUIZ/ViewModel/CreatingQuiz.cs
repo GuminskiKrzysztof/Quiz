@@ -19,12 +19,13 @@ namespace QUIZ.ViewModel
         private ObservableCollection<Quiz> quizzes = null;
         private ObservableCollection<Answer> answers = null;
         private ObservableCollection<Question> questions = null;
-        private string numberOfQuestions;
-        private string quizName;
-        private string answerText;
-        private string questionText;
-        private Quiz currentQuiz;
-        private Question currentQuestion;
+        private string? numberOfQuestions;
+        private string? quizName;
+        private string? answerText;
+        private string? questionText;
+        private Quiz? currentQuiz;
+        private Question? currentQuestion;
+        public Answer? currentAnswer;
         private bool correctAnswer;
         private bool incorrectAnswer;
 
@@ -91,7 +92,7 @@ namespace QUIZ.ViewModel
         }
 
 
-        public string NumberOfQuestions
+        public string? NumberOfQuestions
         {
             get { return numberOfQuestions; }
             set
@@ -101,7 +102,7 @@ namespace QUIZ.ViewModel
             }
         }
 
-        public string QuizName
+        public string? QuizName
         {
             get { return quizName; }
             set
@@ -111,7 +112,7 @@ namespace QUIZ.ViewModel
             }
         }
 
-        public string AnswerText
+        public string? AnswerText
         {
             get { return answerText; }
             set
@@ -121,7 +122,7 @@ namespace QUIZ.ViewModel
             }
         }
 
-        public string QuestionText
+        public string? QuestionText
         {
             get { return questionText; }
             set
@@ -133,7 +134,7 @@ namespace QUIZ.ViewModel
 
 
 
-        public Quiz CurrentQuiz
+        public Quiz? CurrentQuiz
         {
             get { return currentQuiz; }
             set
@@ -146,7 +147,7 @@ namespace QUIZ.ViewModel
                 }
             }
         }
-        public Question CurrentQuestion
+        public Question? CurrentQuestion
         {
             get { return currentQuestion; }
             set
@@ -159,7 +160,15 @@ namespace QUIZ.ViewModel
                 }
             }
         }
-        public Quiz CurrentAnswer { get; set; }
+        public Answer? CurrentAnswer
+        {
+            get { return currentAnswer; }
+            set
+            {
+                currentAnswer = value;
+                onPropertyChanged(nameof(CurrentAnswer));
+            }
+        }
 
         public ObservableCollection<Quiz> Quizzes
         {
@@ -191,7 +200,6 @@ namespace QUIZ.ViewModel
 
         public void RefreshQuizzes() => Quizzes = model.Quizzes;
 
-        
 
         private ICommand addQuiz = null;
         public ICommand AddQuiz
@@ -206,14 +214,17 @@ namespace QUIZ.ViewModel
                             if (int.TryParse(NumberOfQuestions, out parsedNumberOfQuestions))
                             {
                                 var quiz = new Quiz(QuizName, parsedNumberOfQuestions);
+                                
 
                                 if (model.AddQuizToDatabase(quiz))
                                 {
                                     System.Windows.MessageBox.Show("Quiz was added to database!");
+                                    QuizName = "";
+                                    NumberOfQuestions = "";
                                 }
                             }
                         },
-                        arg => (QuizName != "") && (NumberOfQuestions != "") 
+                        arg => (1 > 0) 
                         );
 
                 return addQuiz;
@@ -236,10 +247,11 @@ namespace QUIZ.ViewModel
                             var question = new Question(CurrentQuiz.Id, QuestionText, WhichQuestion);
                                 if (model.AddQuestionToDatabase(question))
                                 {
-                                    System.Windows.MessageBox.Show("Question was added to database! " + WhichQuestion);
+                                    System.Windows.MessageBox.Show("Question was added to database! ");
+                                    QuestionText = "";
                                 }
                         },
-                        arg => (QuestionText != "")
+                        arg => (CurrentQuiz != null)
                         );
 
                 return addQuestion;
@@ -269,9 +281,10 @@ namespace QUIZ.ViewModel
                             if (model.AddAnswerToDatabase(answer))
                             {
                                 System.Windows.MessageBox.Show("Answer was added to database!");
+                                AnswerText = "";
                             }
                         },
-                        arg => (AnswerText != "") && (CorrectAnswer != null)
+                        arg => (CurrentQuestion != null)
                         );
 
                 return addAnswer;
@@ -294,6 +307,156 @@ namespace QUIZ.ViewModel
                 return loadAllQuizzes;
             }
                 
+        }
+
+        private ICommand editQuiz = null;
+        public ICommand EditQuiz
+        {
+            get
+            {
+                if (editQuiz == null)
+                    editQuiz = new RelayCommand(
+                        arg =>
+                        {
+                            int parsedNumberOfQuestions;
+                            if (int.TryParse(NumberOfQuestions, out parsedNumberOfQuestions))
+                            {
+                                if (model.EditQuiz(QuizName, parsedNumberOfQuestions, CurrentQuiz.Id))
+                                {
+                                    System.Windows.MessageBox.Show("Quiz was changed!");
+                                }
+                            }
+                            QuizName = "";
+                            NumberOfQuestions = "";
+                        },
+                        arg => (CurrentQuiz != null)
+                        );
+
+                return editQuiz;
+            }
+        }
+
+        private ICommand deleteQuiz = null;
+        public ICommand DeleteQuiz
+        {
+            get
+            {
+                if (deleteQuiz == null)
+                    deleteQuiz = new RelayCommand(
+                        arg =>
+                        {
+                                if (model.DeleteQuiz(CurrentQuiz.Id))
+                                {
+                                    System.Windows.MessageBox.Show("Quiz was deleted!");
+                                }
+                            
+
+                        },
+                        arg => (CurrentQuiz != null) && (Questions.Count == 0)
+                        );
+
+                return deleteQuiz;
+            }
+        }
+
+        private ICommand editQuestion = null;
+        public ICommand EditQuestion
+        {
+            get
+            {
+                if (editQuestion == null)
+                    editQuestion = new RelayCommand(
+                        arg =>
+                        {
+                                if (model.EditQuestion(QuestionText, CurrentQuestion.Id_question))
+                                {
+                                    System.Windows.MessageBox.Show("Question was changed!");
+                                }
+                            QuestionText = "";
+                        },
+                        arg => (CurrentQuestion != null)
+                        );
+
+                return editQuestion;
+            }
+        }
+
+        private ICommand deleteQuestion = null;
+        public ICommand DeleteQuestion
+        {
+            get
+            {
+                if (deleteQuestion == null)
+                    deleteQuestion = new RelayCommand(
+                        arg =>
+                        {
+                            if (model.DeleteQuestion(CurrentQuestion.Id_question))
+                            {
+                                System.Windows.MessageBox.Show("Question was deleted!");
+                            }
+
+
+                        },
+                        arg => (CurrentQuestion != null) && (Answers.Count == 0)
+                        );
+
+                return deleteQuestion;
+            }
+        }
+
+        private ICommand editAnswer = null;
+        public ICommand EditAnswer
+        {
+            get
+            {
+                if (editAnswer == null)
+                    editAnswer = new RelayCommand(
+                        arg =>
+                        {
+                            bool isCorrect = CorrectAnswer;
+                            string str;
+                            if (isCorrect)
+                            {
+                                str = "T";
+                            }
+                            else
+                            {
+                                str = "N";
+                            }
+                            if (model.EditAnswer(AnswerText, str, CurrentAnswer.Id_answer))
+                            {
+                                System.Windows.MessageBox.Show("Answer was changed!");
+                            }
+                            AnswerText = "";
+
+                        },
+                        arg => (CurrentAnswer != null) && (CurrentQuestion != null)
+                        );
+
+                return editAnswer;
+            }
+        }
+
+        private ICommand deleteAnswer = null;
+        public ICommand DeleteAnswer
+        {
+            get
+            {
+                if (deleteAnswer == null)
+                    deleteAnswer = new RelayCommand(
+                        arg =>
+                        {
+                            if (model.DeleteAnswer(CurrentAnswer.Id_answer))
+                            {
+                                System.Windows.MessageBox.Show("Answer was deleted!");
+                            }
+
+                        },
+                        arg => (CurrentAnswer != null)
+                        );
+
+                return deleteAnswer;
+            }
         }
 
     }

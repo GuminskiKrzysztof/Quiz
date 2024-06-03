@@ -64,5 +64,41 @@ namespace QUIZ.DAL.Repozytoria
 
             return questions;
         }
+
+        public static bool EditQuestion(string? questionText, int? idQuestion)
+        {
+            bool stan = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string EDIT_QUESTION =
+                    $"UPDATE questions SET text='{questionText}' WHERE id_question={idQuestion}";
+
+                MySqlCommand command = new MySqlCommand(EDIT_QUESTION, connection);
+                connection.Open();
+                var n = command.ExecuteNonQuery();
+                if (n == 1) stan = true;
+
+                connection.Close();
+            }
+            return stan;
+        }
+
+        public static bool DeleteQuestion(int? idQuestion)
+        {
+            bool stan = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string DELETE_QUESTION =
+                    $"Delete from questions WHERE id_question={idQuestion}";
+
+                MySqlCommand command = new MySqlCommand(DELETE_QUESTION, connection);
+                connection.Open();
+                var n = command.ExecuteNonQuery();
+                if (n == 1) stan = true;
+
+                connection.Close();
+            }
+            return stan;
+        }
     }
 }
